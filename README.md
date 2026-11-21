@@ -1,2 +1,2 @@
-# store-management-system
+# Stock Shift
 Our project for 1st sem (bwd)
