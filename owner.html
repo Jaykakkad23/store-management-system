@@ -29,3 +29,43 @@
       <header class="topbar">
         <span class="crumb" id="crumb-text">Owner workspace / Overview</span>
         <div class="top-actions">
+     <button class="button small" onclick="signOut()" type="button">Sign out</button>
+        </div>
+      </header>
+      <main class="page-content">
+        <section id="page-overview">
+          <div class="page-heading">
+            <div><h1>A clear view of your store.</h1><p>Today's store summary.</p></div>
+            <div class="heading-actions"><button class="button" onclick="showPage('inventory')">View inventory</button><button class="button primary" onclick="showPage('sales')">Sales report</button></div>
+          </div>
+          <div class="stats-grid" id="overview-stats"></div>
+          <div class="dashboard-grid">
+            <div class="panel">
+              <div class="panel-head"><div><h2>Sales overview</h2><p>Last 7 days</p></div></div>
+              <div class="sales-chart" id="sales-chart"></div>
+              <div class="chart-total">Total recorded: <strong id="chart-total"></strong></div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><div><h2>Low stock</h2><p>Restock soon</p></div></div>
+              <div id="low-stock-list"></div>
+            </div>
+          </div>
+          <div class="panel section-gap">
+            <div class="panel-head shelf-panel-head">
+              <div><h2>Inventory shelf</h2><p>Hover over a product to see its stock. Click to view it in Inventory.</p></div>
+              <div class="shelf-legend"><span><i class="healthy"></i>Healthy</span><span><i class="low"></i>Low / near expiry</span><span><i class="attention"></i>Out / expired</span></div>
+            </div>
+            <div class="shelf-stage" id="shelf-stage">
+              <canvas id="shelf-canvas" aria-label="Interactive 3D inventory shelf"></canvas>
+              <div class="shelf-tooltip hidden" id="shelf-tooltip"></div>
+              <div class="shelf-fallback hidden" id="shelf-fallback">The 3D shelf is unavailable in this browser.</div>
+            </div>
+          </div>
+          <div class="panel section-gap">
+            <div class="panel-head"><div><h2>Expiry Rescue</h2><p>Near-expiry items</p></div><div class="rescue-total"><strong id="rescued-total">0</strong><span>units rescued</span></div></div>
+            <div id="near-expiry-list"></div>
+          </div>
+          <div class="panel section-gap">
+            <div class="panel-head"><div><h2>Recent sales</h2><p>Latest transactions</p></div></div>
+            <div id="recent-sales-wrap"></div>
+          </div>
