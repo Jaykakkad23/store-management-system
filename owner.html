@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StockShift — Owner dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="owner.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">S</span>StockShift</div>
+      <div class="nav-label">Workspace</div>
+      <nav class="nav-list">
+        <a class="nav-link active" href="#" onclick="showPage('overview'); return false;">Overview</a>
+        <a class="nav-link" href="#" onclick="showPage('inventory'); return false;">Inventory</a>
+        <a class="nav-link" href="#" onclick="showPage('sales'); return false;">Sales</a>
+        <a class="nav-link" href="#" onclick="showPage('shifts'); return false;">Shifts</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="user-mini">
+          <span class="avatar" id="user-initials"></span>
+          <di><strong id="user-name"></strong><small>Store owner</small></div>
+        </div>
+      </div>
+    </aside>
+    <section class="main-area">
+      <header class="topbar">
+        <span class="crumb" id="crumb-text">Owner workspace / Overview</span>
+        <div class="top-actions"
