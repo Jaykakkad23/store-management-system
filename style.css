@@ -48,3 +48,22 @@ button { cursor: pointer; }
   color: #23332b;
 }
 .field input, .field select { height: 40px; }
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #194733;
+  font-size: 17px;
+  font-weight: 700;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 7px;
+  background: #245c43;
+  color: #ffffff;
+  font-size: 14px;
+}
+
