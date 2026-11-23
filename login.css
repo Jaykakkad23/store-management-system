@@ -1,7 +1,7 @@
 .login-page { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; background: #ffffff; }
 .login-aside { display: flex; flex-direction: column; justify-content: space-between; padding: 34px 48px; background: #edf3ee; }
 .aside-copy { max-width: 390px; padding: 48px 0; }
-.aside-copy h { margin: 14px 0; color: #263d30; font-size: 40px; font-weight: 500; line-height: 1.1; }
+.aside-copy h1 { margin: 14px 0; color: #263d30; font-size: 40px; font-weight: 500; line-height: 1.1; }
 .aside-copy p { color: #728078; font-size: 14px; line-height: 1.7; }
 .demo-preview { max-width: 370px; margin-top: 30px; padding: 18px; border: 1px solid #e0e9e1; border-radius: 10px; background: #ffffff; }
 .preview-head { display: flex; justify-content: space-between; color: #78847c; font-size: 11px; }
@@ -11,7 +11,7 @@
 .login-foot { color: #87938a; font-size: 11px; }
 .login-main { display: grid; place-items: center; padding: 40px 24px; }
 .login-box { width: 100%; max-width: 390px; }
-.login-box h { margin: 0 0 8px; font-size: 27px; font-weight: 500; }
+.login-box h2 { margin: 0 0 8px; font-size: 27px; font-weight: 500; }
 .login-box > p { margin: 0 0 28px; color: #78847c; font-size: 13px; }
 .login-form { display: grid; gap: 17px; }
 .login-form .button { width: 100%; }
