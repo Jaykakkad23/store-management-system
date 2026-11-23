@@ -1,0 +1,50 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial;
+  color: #23332b;
+  background-color: #f5f7f4;
+}
+button, input, select, textarea { font-family: inherit; }
+button { cursor: pointer; }
+.hidden { display: none !important; }
+.eyebrow {
+  color: #245c43;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid #e5e9e5;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #23332b;
+  font-size: 13px;
+  font-weight: 600;
+}
+.button:hover { border-color: #b6c8ba; background: #f9fbf9; }
+.button.primary { border-color: #245c43; background: #245c43; color: #ffffff; }
+.button.primary:hover { background: #194733; }
+.button.small { min-height: 30px; padding: 0 10px; font-size: 12px; }
+.field {
+  display: grid;
+  gap: 7px;
+  color: #49574e;
+  font-size: 12px;
+  font-weight: 600;
+}
+.field input, .field select, .field textarea {
+  width: 100%;
+  padding: 8px 11px;
+  border: 1px solid #dfe5df;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #23332b;
+}
+.field input, .field select { height: 40px; }
