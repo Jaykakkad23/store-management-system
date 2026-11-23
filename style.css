@@ -66,4 +66,13 @@ button { cursor: pointer; }
   color: #ffffff;
   font-size: 14px;
 }
-
+.sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 14px;
+  border-right: 1px solid #e5e9e5;
+  background: #ffffff;
+}
