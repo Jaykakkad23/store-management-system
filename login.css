@@ -21,5 +21,5 @@
 .login-error { min-height: 16px; color: #b64b42; font-size: 12px; }
 @media (max-width: 650px) {
   .login-page { grid-template-columns: 1fr; }
-  .aside-copy p, demo-preview, .login-foot { display: none; }
+  .aside-copy p, .demo-preview, .login-foot { display: none; }
 }
