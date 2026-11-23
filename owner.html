@@ -69,3 +69,33 @@
             <div class="panel-head"><div><h2>Recent sales</h2><p>Latest transactions</p></div></div>
             <div id="recent-sales-wrap"></div>
           </div>
+          </section>
+        <section id="page-inventory" class="hidden">
+          <div class="page-heading">
+            <div><h1>Inventory</h1><p>Manage products, prices, and expiry dates.</p></div>
+            <button class="button primary" onclick="openProductModal(null)" type="button">+ Add product</button>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><div><h2><span id="inv-count">0</span> products</h2></div><input class="search-input" id="inv-search" type="search" placeholder="Search products"></div>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Expiry</th><th>Status</th><th></th></tr></thead><tbody id="inv-rows"></tbody></table></div>
+            <div class="empty-state hidden" id="inv-empty">No products match your search</div>
+          </div>
+        </section>
+        <section id="page-sales" class="hidden">
+          <div class="page-heading"><div><h1>Sales</h1><p>Completed transactions.</p></div><button class="button primary" onclick="exportSalesCSV()" type="button">Download CSV</button></div>
+          <div class="stats-grid" id="sales-stats"></div>
+          <div class="panel"><div class="panel-head"><div><h2>All transactions</h2></div></div><div id="all-sales-wrap"></div></div>
+        </section>
+        <section id="page-shifts" class="hidden">
+          <div class="page-heading"><div><h1>Shift handover</h1><p>Active and closed shifts.</p></div></div>
+          <div class="panel" id="owner-open-shift">
+            <div class="panel-head"><div><h2>Active shift</h2><p id="o-shift-cashier"></p></div><span class="status">Open</span></div>
+            <div class="shift-metrics"><div><span>Opening</span><strong id="o-shift-open"></strong></div><div><span>Sales</span><strong id="o-shift-sales"></strong></div><div><span>Expected</span><strong id="o-shift-exp"></strong></div><div><span>Transactions</span><strong id="o-shift-tx"></strong></div></div>
+          </div>
+          <div class="empty-state hidden" id="owner-no-open-shift">No shift is currently open.</div>
+          <div class="panel section-gap">
+            <div class="panel-head"><div><h2>Closed shifts</h2></div></div>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>Cashier</th><th>Closed</th><th>Sales</th><th>Expected</th><th>Counted</th><th>Difference</th><th>Note</th></tr></thead><tbody id="closed-shift-rows"></tbody></table></div>
+          </div>
+        </section>
+      </main>
