@@ -55,3 +55,22 @@ function daysUntilExpiry(dateText) {
   var diffMs = expiryDate - today;
   return Math.ceil(diffMs / 86400000);
 }
+
+function isNearExpiry(dateText) {
+  var days = daysUntilExpiry(dateText);
+  return days >= 0 && days <= 30;
+}
+
+function isExpired(dateText) {
+  return daysUntilExpiry(dateText) < 0;
+}
+
+function getTodaySales() {
+  var list = [];
+  for (var i = 0; i < sales.length; i++) {
+    if (sales[i].time.indexOf("Today") === 0) {
+      list.push(sales[i]);
+    }
+  }
+  return list;
+}
