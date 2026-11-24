@@ -74,3 +74,18 @@ function getTodaySales() {
   }
   return list;
 }
+//
+
+function getTodayRevenue() {
+  var list = getTodaySales();
+  var total = 0;
+  for (var i = 0; i < list.length; i++) {
+    total = total + list[i].total;
+  }
+  return total;
+}
+
+function nextSaleId() {
+  var num = 1049 + sales.length - defaultSales.length;
+  return "SS-" + num;
+}
