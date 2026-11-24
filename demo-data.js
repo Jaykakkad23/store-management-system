@@ -89,3 +89,32 @@ function nextSaleId() {
   var num = 1049 + sales.length - defaultSales.length;
   return "SS-" + num;
 }
+
+function checkSignedInUser(requiredRole) {
+  var saved = sessionStorage.getItem("stockshift-user");
+  if (saved === null) {
+    location.replace("index.html");
+    return null;
+  }
+  var user = JSON.parse(saved);
+  if (user.role !== requiredRole) {
+    location.replace("index.html");
+    return null;
+  }
+  return user;
+}
+
+function signOut() {
+  sessionStorage.removeItem("stockshift-user");
+  location.href = "index.html";
+}
+
+function showToast(message) {
+  var old = document.querySelector(".toast");
+  if (old !== null) { old.remove(); }
+  var toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(function () { toast.remove(); }, 2600);
+}
