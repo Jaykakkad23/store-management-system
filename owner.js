@@ -67,3 +67,66 @@ function renderOverview() {
   renderSalesTable("recent-sales-wrap", sales.slice(0, 5));
   if (window.renderInventoryShelf) { window.renderInventoryShelf(); }
 }
+
+function renderInventory() {
+  var q = document.getElementById("inv-search").value.toLowerCase();
+  document.getElementById("inv-count").textContent = products.length;
+  var html = ''; var shown = 0;
+  for (var i = 0; i < products.length; i++) {
+    var p = products[i];
+    if ((p.name + " " + p.category).toLowerCase().indexOf(q) === -1) { continue; }
+    shown++;
+    var sClass = p.stock === 0 ? 'tag red' : (p.stock <= 10 ? 'tag warning' : 'tag');
+    var sText = p.stock === 0 ? 'Out of stock' : (p.stock <= 10 ? 'Low stock' : 'In stock');
+    html += '<tr><td>' + p.name + '</td><td>' + p.category + '</td><td>' + formatMoney(p.price) + '</td><td>' + p.stock + '</td><td>' + p.expiry + '</td>' +
+      '<td><span class="' + sClass + '">' + sText + '</span></td><td><button class="button small" onclick="openProductModal(' + p.id + ')">Edit</button></td></tr>';
+  }
+  document.getElementById("inv-rows").innerHTML = html;
+  document.getElementById("inv-empty").classList.toggle("hidden", shown > 0);
+}
+
+function openProductModal(productId) {
+  document.getElementById("product-modal").classList.remove("hidden");
+  if (productId === null) {
+    document.getElementById("modal-title").textContent = "Add product";
+    document.getElementById("modal-submit-btn").textContent = "Add product";
+    document.getElementById("edit-id").value = "";
+    document.getElementById("product-form").reset();
+  } else {
+    document.getElementById("modal-title").textContent = "Edit product";
+    document.getElementById("modal-submit-btn").textContent = "Save changes";
+    for (var i = 0; i < products.length; i++) {
+      if (products[i].id === productId) {
+        document.getElementById("edit-id").value = products[i].id;
+        document.getElementById("f-name").value = products[i].name;
+        document.getElementById("f-category").value = products[i].category;
+        document.getElementById("f-price").value = products[i].price;
+        document.getElementById("f-stock").value = products[i].stock;
+        document.getElementById("f-expiry").value = products[i].expiry;
+      }
+    }
+  }
+}
+function closeProductModal() { document.getElementById("product-modal").classList.add("hidden"); }
+
+document.getElementById("product-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var editId = document.getElementById("edit-id").value;
+  var name = document.getElementById("f-name").value.trim();
+  var category = document.getElementById("f-category").value.trim();
+  var price = Number(document.getElementById("f-price").value);
+  var stock = Number(document.getElementById("f-stock").value);
+  var expiry = document.getElementById("f-expiry").value;
+  if (editId === "") {
+    products.unshift({ id: Date.now(), name: name, category: category, price: price, stock: stock, expiry: expiry });
+  } else {
+    for (var i = 0; i < products.length; i++) {
+      if (products[i].id === Number(editId)) {
+        products[i].name = name; products[i].category = category;
+        products[i].price = price; products[i].stock = stock; products[i].expiry = expiry;
+      }
+    }
+  }
+  saveAllData(); closeProductModal(); renderInventory();
+  showToast(editId === "" ? "Product added." : "Product updated.");
+});
