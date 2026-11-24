@@ -130,3 +130,18 @@ document.getElementById("product-form").addEventListener("submit", function (e) 
   saveAllData(); closeProductModal(); renderInventory();
   showToast(editId === "" ? "Product added." : "Product updated.");
 });
+
+function exportSalesCSV() {
+  var csv = "Sale ID,Cashier,Time,Items,Rescued,Total\n";
+  for (var i = 0; i < sales.length; i++) {
+    csv += sales[i].id + "," + sales[i].cashier + ",\"" + sales[i].time + "\"," + sales[i].items + "," + (sales[i].rescuedUnits || 0) + "," + sales[i].total + "\n";
+  }
+  var link = document.createElement("a");
+  link.href = encodeURI("data:text/csv;charset=utf-8," + csv);
+  link.download = "stockshift-sales.csv";
+  link.click();
+  showToast("Sales report downloaded.");
+}
+//
+
+document.getElementById("inv-search").addEventListener("input", renderInventory);
