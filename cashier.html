@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StockShift — Cashier checkout</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="cashier.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">S</span>StockShift</div>
+      <div class="nav-label">Workspace</div>
+      <nav class="nav-list">
+        <a class="nav-link active" href="#" onclick="showPage('pos'); return false;">+ Checkout</a>
+        <a class="nav-link" href="#" onclick="showPage('inventory'); return false;">= Inventory</a>
+        <a class="nav-link" href="#" onclick="showPage('shift'); return false;">&lt;-&gt; Shift</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="user-mini">
+          <span class="avatar" id="user-initials"></span>
+          <div><strong id="user-name"></strong><small>Cashier</small></div>
+        </div>
+      </div>
+    </aside>
+    <section class="main-area">
+      <header class="topbar">
+        <span class="crumb" id="crumb-text">Cashier workspace / Checkout</span>
+        <div class="top-actions">
+          <span class="status">Demo data</span>
+          <button class="button small" onclick="signOut()" type="button">Sign out</button>
+        </div>
+      </header>
+      <main class="page-content">
+        <section id="page-pos">
+          <div class="page-heading">
+            <div><h1>Checkout</h1><p>Choose products and complete the sale.</p></div>
+            <div class="heading-actions"><span class="status">Cashier mode</span></div>
+          </div>
