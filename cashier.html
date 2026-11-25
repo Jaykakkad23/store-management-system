@@ -89,3 +89,39 @@
               <button class="button primary" type="submit">Start shift</button>
             </form>
           </div>
+<div class="panel hidden" id="shift-active-panel">
+            <div class="panel-head"><div><h2>Shift in progress</h2><p id="shift-started-at"></p></div><span class="status">Open</span></div>
+            <div class="shift-metrics">
+              <div><span>Opening cash</span><strong id="m-opening"></strong></div>
+              <div><span>Cash sales</span><strong id="m-sales"></strong></div>
+              <div><span>Expected drawer</span><strong id="m-expected"></strong></div>
+              <div><span>Transactions</span><strong id="m-tx"></strong></div>
+            </div>
+            <button class="button primary" onclick="toggleCloseShift(true)" type="button">End shift</button>
+          </div>
+          <div class="panel hidden section-gap" id="shift-close-panel">
+            <div class="panel-head"><div><h2>Close shift</h2><p>Count the drawer and leave a note.</p></div></div>
+            <p>Expected cash: <strong id="close-expected"></strong></p>
+            <form class="shift-form" id="close-shift-form">
+              <label class="field">Counted closing cash (Rs. )<input id="counted-cash" type="number" min="0" step="0.01" required></label>
+              <label class="field">Handover note (optional)<textarea id="shift-note" rows="3"></textarea></label>
+              <div class="shift-actions"><button class="button" onclick="toggleCloseShift(false)" type="button">Back</button><button class="button primary" type="submit">Close shift</button></div>
+            </form>
+          </div>
+          <div class="panel hidden section-gap" id="shift-last-panel">
+            <div class="panel-head"><div><h2>Last shift closed</h2><p id="last-shift-time"></p></div><span class="tag" id="last-shift-status"></span></div>
+            <div class="shift-summary">
+              <span>Expected cash <strong id="last-expected"></strong></span>
+              <span>Counted cash <strong id="last-counted"></strong></span>
+              <span>Difference <strong id="last-diff"></strong></span>
+            </div>
+            <p class="receipt-note" id="last-note"></p>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
+  <script src="demo-data.js?v=2"></script>
+  <script src="cashier.js"></script>
+</body>
+</html>
