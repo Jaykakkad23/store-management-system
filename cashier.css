@@ -1,0 +1,31 @@
+.pos-layout { display: grid; grid-template-columns: 1fr 340px; align-items: start; gap: 16px; }
+.product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; }
+.product-card { min-height: 120px; padding: 14px; border: 1px solid #e5e9e5; border-radius: 8px; background: #ffffff; text-align: left; }
+.product-card.shake { animation: product-shake 0.22s ease-in-out; }
+@keyframes product-shake {
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+.product-card:hover { border-color: #a9c2ad; }
+.product-card:disabled { cursor: not-allowed; opacity: 0.48; }
+.product-type { display: block; margin-bottom: 16px; color: #8a968e; font-size: 10px; }
+.product-name { display: block; min-height: 30px; font-size: 12px; font-weight: 600; }
+.expiry-badge { display: inline-flex; margin-top: 8px; padding: 4px 7px; border-radius: 12px; background: #fbf3e7; color: #946521; font-size: 10px; }
+.expiry-badge.expired { background: #fbefed; color: #a64e46; }
+.product-bottom { display: flex; justify-content: space-between; margin-top: 8px; color: #245c43; font-size: 11px; font-weight: 600; }
+.cart-panel { position: sticky; top: 78px; }
+.cart-empty { padding: 40px 10px; color: #909b93; font-size: 12px; text-align: center; }
+.cart-item { display: grid; grid-template-columns: 1fr auto; gap: 9px; padding: 12px 0; border-bottom: 1px solid #edf0ed; }
+.cart-item strong { display: block; font-size: 11px; }
+.cart-item small { display: block; margin-top: 4px; color: #78847c; font-size: 10px; }
+.quantity { display: flex; align-items: center; gap: 8px; }
+.quantity button { width: 23px; height: 23px; border: 1px solid #e5e9e5; border-radius: 5px; background: #ffffff; }
+.cart-total { display: flex; justify-content: space-between; margin: 15px 0; font-size: 12px; }
+.cart-total strong { font-size: 18px; }
+.cart-panel > .button { width: 100%; }
+.receipt-note { margin: 10px 0 0; color: #8b968e; font-size: 10px; line-height: 1.5; }
+@media (max-width: 920px) {
+  .pos-layout { grid-template-columns: 1fr; }
+  .cart-panel { position: static; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+}
