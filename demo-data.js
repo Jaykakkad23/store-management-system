@@ -44,6 +44,7 @@ function saveAllData() {
 function roundMoney(amount) {
   return Math.round(amount * 100) / 100;
 }
+
 function formatMoney(amount) {
   return "Rs. " + Number(amount).toLocaleString("en-IN");
 }
@@ -74,7 +75,6 @@ function getTodaySales() {
   }
   return list;
 }
-//
 
 function getTodayRevenue() {
   var list = getTodaySales();
@@ -88,6 +88,54 @@ function getTodayRevenue() {
 function nextSaleId() {
   var num = 1049 + sales.length - defaultSales.length;
   return "SS-" + num;
+}
+
+function getActiveShift() {
+  var saved = localStorage.getItem("stockshift-active-shift");
+  if (saved !== null) {
+    return JSON.parse(saved);
+  }
+  return null;
+}
+
+function setActiveShift(shift) {
+  if (shift !== null) {
+    localStorage.setItem("stockshift-active-shift", JSON.stringify(shift));
+  } else {
+    localStorage.removeItem("stockshift-active-shift");
+  }
+}
+
+function startShift(cashierName, openingCash) {
+  if (getActiveShift() !== null) { return null; }
+  var shift = {
+    id: "SHIFT-" + Date.now(),
+    cashier: cashierName,
+    startedAt: new Date().toISOString(),
+    openingCash: openingCash,
+    cashSales: 0,
+    transactions: 0
+  };
+  setActiveShift(shift);
+  return shift;
+}
+
+function closeShift(countedCash, note) {
+  var active = getActiveShift();
+  if (active === null) { return null; }
+  var expected = roundMoney(active.openingCash + active.cashSales);
+  var counted = roundMoney(countedCash);
+  var closed = {
+    id: active.id, cashier: active.cashier, startedAt: active.startedAt,
+    openingCash: active.openingCash, cashSales: active.cashSales,
+    transactions: active.transactions, closedAt: new Date().toISOString(),
+    expectedCash: expected, countedCash: counted,
+    difference: roundMoney(counted - expected), note: note
+  };
+  shifts.unshift(closed);
+  setActiveShift(null);
+  saveAllData();
+  return closed;
 }
 
 function checkSignedInUser(requiredRole) {
