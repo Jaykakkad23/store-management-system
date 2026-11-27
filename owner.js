@@ -131,6 +131,27 @@ document.getElementById("product-form").addEventListener("submit", function (e) 
   showToast(editId === "" ? "Product added." : "Product updated.");
 });
 
+function renderSalesTable(targetId, list) {
+  if (list.length === 0) { document.getElementById(targetId).innerHTML = "<div class=\"empty-state\">No sales yet</div>"; return; }
+  var html = '<div class="table-wrap"><table class="data-table"><thead><tr><th>Sale ID</th><th>Cashier</th><th>Time</th><th>Items</th><th>Rescued</th><th>Total</th></tr></thead><tbody>';
+  for (var i = 0; i < list.length; i++) {
+    html += '<tr><td>' + list[i].id + '</td><td>' + list[i].cashier + '</td><td>' + list[i].time + '</td><td>' + list[i].items + '</td><td>' + (list[i].rescuedUnits || 0) + '</td><td>' + formatMoney(list[i].total) + '</td></tr>';
+  }
+  document.getElementById(targetId).innerHTML = html + "</tbody></table></div>";
+}
+
+function renderSales() {
+  var total = 0;
+  for (var i = 0; i < sales.length; i++) { total += sales[i].total; }
+  var avg = sales.length > 0 ? Math.round(total / sales.length) : 0;
+  document.getElementById("sales-stats").innerHTML =
+    makeStatCardHTML("Recorded sales", sales.length, "All sessions") +
+    makeStatCardHTML("Today's sales", formatMoney(getTodayRevenue()), "From today") +
+    makeStatCardHTML("Average sale", formatMoney(avg), "Per bill") +
+    makeStatCardHTML("Last bill", sales.length ? sales[0].id : "—", sales.length ? sales[0].time : "None");
+  renderSalesTable("all-sales-wrap", sales);
+}
+
 function exportSalesCSV() {
   var csv = "Sale ID,Cashier,Time,Items,Rescued,Total\n";
   for (var i = 0; i < sales.length; i++) {
@@ -142,6 +163,25 @@ function exportSalesCSV() {
   link.click();
   showToast("Sales report downloaded.");
 }
-//
+
+function renderShifts() {
+  var active = getActiveShift();
+  document.getElementById("owner-open-shift").classList.toggle("hidden", active === null);
+  document.getElementById("owner-no-open-shift").classList.toggle("hidden", active !== null);
+  if (active !== null) {
+    document.getElementById("o-shift-cashier").textContent = active.cashier;
+    document.getElementById("o-shift-open").textContent = formatMoney(active.openingCash);
+    document.getElementById("o-shift-sales").textContent = formatMoney(active.cashSales);
+    document.getElementById("o-shift-exp").textContent = formatMoney(active.openingCash + active.cashSales);
+    document.getElementById("o-shift-tx").textContent = active.transactions;
+  }
+  var html = '';
+  for (var i = 0; i < shifts.length; i++) {
+    var s = shifts[i];
+    var diffText = s.difference === 0 ? 'Balanced' : formatMoney(Math.abs(s.difference)) + (s.difference > 0 ? ' over' : ' short');
+    html += '<tr><td>' + s.cashier + '</td><td>' + new Date(s.closedAt).toLocaleString('en-IN') + '</td><td>' + formatMoney(s.cashSales) + '</td><td>' + formatMoney(s.expectedCash) + '</td><td>' + formatMoney(s.countedCash) + '</td><td>' + diffText + '</td><td>' + (s.note || '—') + '</td></tr>';
+  }
+  document.getElementById("closed-shift-rows").innerHTML = html;
+}
 
 document.getElementById("inv-search").addEventListener("input", renderInventory);
