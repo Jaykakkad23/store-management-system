@@ -88,3 +88,54 @@ if (renderer) {
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
   }
+
+  function findProduct(event) {
+    var rect = canvas.getBoundingClientRect();
+    pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    var hits = raycaster.intersectObjects(productMeshes);
+    return hits.length ? products[hits[0].object.userData.productIndex] : null;
+  }
+
+  canvas.addEventListener("pointermove", function (event) {
+    hoveredProduct = findProduct(event);
+    canvas.style.cursor = hoveredProduct ? "pointer" : "grab";
+    if (hoveredProduct) {
+      tooltip.innerHTML = "<strong></strong><span></span>";
+      tooltip.querySelector("strong").textContent = hoveredProduct.name;
+      tooltip.querySelector("span").textContent = hoveredProduct.stock + " in stock";
+      tooltip.style.left = Math.min(event.offsetX + 12, stage.clientWidth - 150) + "px";
+      tooltip.style.top = Math.max(event.offsetY - 38, 8) + "px";
+      tooltip.classList.remove("hidden");
+    } else {
+      tooltip.classList.add("hidden");
+    }
+  });
+
+  canvas.addEventListener("pointerleave", function () {
+    hoveredProduct = null;
+    tooltip.classList.add("hidden");
+  });
+
+  canvas.addEventListener("click", function (event) {
+    var product = findProduct(event);
+    if (!product) { return; }
+    window.showPage("inventory");
+    document.getElementById("inv-search").value = product.name;
+    window.renderInventory();
+  });
+
+  window.renderInventoryShelf = drawProducts;
+  drawProducts();
+  resizeShelf();
+  window.addEventListener("resize", resizeShelf);
+
+  function animate() {
+    requestAnimationFrame(animate);
+    shelf.rotation.y = Math.sin(Date.now() * 0.00035) * 0.06;
+    renderer.render(scene, camera);
+  }
+  animate();
+}
+}
