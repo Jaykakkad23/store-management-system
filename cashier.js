@@ -11,6 +11,7 @@ if (user !== null) {
     showPage("shift");
   }
 }
+
 function showPage(pageName) {
   document.getElementById("page-pos").classList.add("hidden");
   document.getElementById("page-inventory").classList.add("hidden");
@@ -67,3 +68,44 @@ function addToCart(productId, button) {
   renderCart();
 }
 
+function changeQty(productId, delta) {
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].id === productId) {
+      var p = null;
+      for (var k = 0; k < products.length; k++) { if (products[k].id === productId) { p = products[k]; } }
+      var nextQty = cart[i].qty + delta;
+      if (delta > 0 && p.stock < 1) { showToast('Not enough stock.'); return; }
+      p.stock -= delta;
+      if (nextQty < 1) { cart.splice(i, 1); } else { cart[i].qty = nextQty; }
+      break;
+    }
+  }
+  renderCheckout();
+}
+
+function clearCart() {
+  for (var i = 0; i < cart.length; i++) {
+    for (var j = 0; j < products.length; j++) {
+      if (products[j].id === cart[i].id) { products[j].stock += cart[i].qty; }
+    }
+  }
+  cart = [];
+  renderCheckout();
+}
+
+function renderCart() {
+  var shift = getActiveShift();
+  var count = 0; var total = 0; var html = '';
+  for (var i = 0; i < cart.length; i++) {
+    count += cart[i].qty;
+    total += cart[i].price * cart[i].qty;
+    html += '<div class="cart-item"><div><strong>' + cart[i].name + '</strong><small>' + formatMoney(cart[i].price) + ' each</small></div>' +
+      '<div class="quantity"><button onclick="changeQty(' + cart[i].id + ',-1)">-</button><span>' + cart[i].qty + '</span><button onclick="changeQty(' + cart[i].id + ',1)">+</button></div></div>';
+  }
+  document.getElementById("cart-count").textContent = count;
+  document.getElementById("cart-total").textContent = formatMoney(total);
+  document.getElementById("cart-items").innerHTML = html;
+  document.getElementById("cart-empty").classList.toggle("hidden", cart.length > 0);
+  document.getElementById("shift-required-banner").classList.toggle("hidden", shift !== null);
+  document.getElementById("complete-sale-btn").disabled = (cart.length === 0 || shift === null);
+}
