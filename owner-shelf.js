@@ -1,3 +1,8 @@
+var canvas = document.getElementById("shelf-canvas");
+var stage = document.getElementById("shelf-stage");
+var tooltip = document.getElementById("shelf-tooltip");
+var fallback = document.getElementById("shelf-fallback");
+var THREE;
 try {
   THREE = await import("https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js");
 } catch (error) {
@@ -20,6 +25,7 @@ try {
   console.error("Could not start WebGL for the inventory shelf.", error);
   fallback.classList.remove("hidden");
 }
+
 if (renderer) {
   var shelf = new THREE.Group();
   scene.add(shelf);
